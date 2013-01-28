@@ -1,0 +1,70 @@
+
+/**
+ *
+ * Applies to all widgets
+ *
+ */
+[class*=bw-].disabled {
+	opacity: 0.35;
+}
+
+
+/**
+ *
+ * Toggle
+ *
+ */
+.bw-toggle .bw-toggle-content {
+	background-color: #e2e2e2;
+	overflow: hidden; /* needed in order for the content to actually disappear */
+	height: 0px;
+}
+
+.bw-toggle .bw-toggle-content.active {
+	height: auto;
+}
+
+.bw-toggle .bw-toggle-collapse,
+.bw-toggle .bw-toggle-expand {
+	background-color: #e2e2e2;
+	cursor: pointer;
+}
+
+
+/**
+ *
+ * Suggestions
+ *
+ */
+.bw-suggestions .bw-suggestions-suggestions {
+	border: 1px solid #000;
+	position: absolute;
+	z-index: 1051;
+	margin-top: 2px;
+	min-width: 160px;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: #fff;
+}
+
+.bw-suggestions .bw-suggestions-item {
+	cursor: pointer;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.bw-suggestions .bw-suggestions-item.active,
+.bw-suggestions .bw-suggestions-item.active:hover {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #0081c2;
+	background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+	background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+	background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+	background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+	background-repeat: repeat-x;
+	outline: 0;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
+}

@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Suggestions : Bitwise</title>
+		<link rel="stylesheet" href="../../lib/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../lib/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="../widgets.css">
+	</head>
+	
+	<body>
+		<h1>Suggestions</h1>
+		
+		<h2>Local suggestions: markup</h2>
+		<div class="bw-suggestions" data-demo-only="markup">
+			<input type="text">
+			<select>
+				<option value="1">january</option>
+				<option value="2">february</option>
+				<option value="3">march</option>
+				<option value="4">april</option>
+				<option value="5">may</option>
+				<option value="6">june</option>
+				<option value="7">july</option>
+				<option value="8">august</option>
+				<option value="9">september</option>
+				<option value="10">october</option>
+				<option value="11">november</option>
+				<option value="12">december</option>
+			</select>
+		</div>
+		
+		<br>
+		
+		<h2>Local suggestions: array</h2>
+		<div class="bw-suggestions" data-demo-only="array">
+			<input type="text">
+		</div>
+		
+		<br>
+		
+		<h2>"Ajax" suggestions</h2>
+		<div class="bw-suggestions" data-demo-only="ajax">
+			<input type="text">
+		</div>
+		
+		<script src="../../lib/js/jquery-1.9.0.min.js"></script>
+		<script src="../../lib/js/jquery-ui-1.10.0.custom.min.js"></script>
+		<script src="../../lib/js/bootstrap.min.js"></script>
+		
+		<script src="../widgets/base.js"></script>
+		<script src="../widgets/suggestions.js"></script>
+		
+		<script>
+			(function($, undefined) {
+			
+				$(document).ready(function() {
+				
+					$(document).find(".bw-suggestions").each(function(i, elm) {
+						var $elm = $(elm);
+						var sourcetype = $elm.attr("data-demo-only");
+					
+						switch (sourcetype) {
+							case "array": {
+								$elm.suggestions({
+									source: [
+										{ value: "1", label: "january" },
+										{ value: "2", label: "february" },
+										{ value: "3", label: "march" },
+										{ value: "4", label: "april" },
+										{ value: "5", label: "may" },
+										{ value: "6", label: "june" },
+										{ value: "7", label: "july" },
+										{ value: "8", label: "august" },
+										{ value: "9", label: "september" },
+										{ value: "10", label: "october" },
+										{ value: "11", label: "november" },
+										{ value: "12", label: "december" }
+									],
+									onchange: onchange
+								});
+								break;
+							}
+							
+							case "ajax": {
+								$elm.suggestions({
+									source: ajaxsource,
+									onchange: onchange
+								});
+								break;
+							}
+							
+							default: {
+								$elm.suggestions({
+									onchange: onchange
+								});
+							}
+						}
+					});
+				});
+				
+				function ajaxsource(term, response) {
+					
+					getdata(term)
+						.done(function(items) {
+							response(items);
+						});
+				}
+
+
+				function getdata(term) {
+					var deferred = new $.Deferred();
+
+					var all = [
+								{ value: "1", label: "january" },
+								{ value: "2", label: "february" },
+								{ value: "3", label: "march" },
+								{ value: "4", label: "april" },
+								{ value: "5", label: "may" },
+								{ value: "6", label: "june" },
+								{ value: "7", label: "july" },
+								{ value: "8", label: "august" },
+								{ value: "9", label: "september" },
+								{ value: "10", label: "october" },
+								{ value: "11", label: "november" },
+								{ value: "12", label: "december" }
+							];
+							
+					var res = [];
+					var t = term.toLowerCase();
+					var tl = term.length;
+					
+					for (var i in all) {
+						var opt = all[i];
+						
+						if ($.bitwise.suggestions.predicates.contains(term, opt)) {
+							res.push(opt);
+						}
+					}
+
+					setTimeout(function() { deferred.resolve(res); }, 3009);
+
+					return deferred.promise();
+				}
+
+
+				function onchange(option) {
+					console.log("value changed", option);
+				}
+			
+			})(jQuery);
+		</script>
+	</body>
+</html>
